@@ -1,3 +1,4 @@
+#TODO: use sql instead of json
 # Imports
 import cligen
 import json
