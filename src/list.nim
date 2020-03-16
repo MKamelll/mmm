@@ -4,7 +4,7 @@ import strutils
 from add import filePath
 
 # Convert array of JsonNode to string
-proc getStringFromJarray(arr: JsonNode): string =
+proc getStringFromJarray*(arr: JsonNode): string =
   let jsonNodeToArray = arr.getElems()
   
   var arrString = ""

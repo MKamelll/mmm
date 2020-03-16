@@ -14,19 +14,28 @@ proc fetchCommand*(alias: string): Option[seq[JsonNode]] =
 
 # Assemble
 proc assembleCmd*(fetchCommand: string, additionalCmds: seq[string]): string =
-  let additionalCmdsStr = additionalCmds.join("")
-  result = &"{fetchCommand}{additionalCmdsStr}"
+  var finalCmd = &"{fetchCommand} "
+  for additionalCmd in additionalCmds:
+    var additionalCmdStr = additionalCmd.join("")
+    # To distinguish the passed args if they're pure strings like the commit mrssages or regular commands
+    if additionalCmdStr.startsWith("#"):
+      additionalCmdStr = additionalCmdStr.strip(chars = {'#'})
+      finalCmd.add(&"\"{additionalCmdStr}\" ")
+    else:
+      finalCmd.add(&"{additionalCmdStr} ")
+  result = finalCmd
 
 # Running cmds
-proc runCommand*(args: seq[string]) = 
+proc runCommand*(args: seq[string]) =
   let argsNum = args.len()
   if argsNum > 0:
     let alias = args[0]
     
     # adding the rest 
     let additionalCmds = args[1..argsNum - 1]
-    let fetchedCmd = fetchCommand(alias).get().join("").strip(chars={'"'})
+    let fetchedCmd = fetchCommand(alias).get().join("").strip(chars = {'"'})
     let excCommand = assembleCmd(fetchedCmd, additionalCmds)
+    echo excCommand
     discard os.execShellCmd(excCommand)
   else:
     echo "Not A Valid Alias :("
