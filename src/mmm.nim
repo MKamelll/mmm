@@ -1,6 +1,5 @@
 #TODOS
 #TODO: use sql instead of json
-#TODO: find a better way instead of \""""\
 
 # Imports
 import cligen
