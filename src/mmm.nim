@@ -1,5 +1,6 @@
 #TODOS
 #TODO: use sql instead of json
+#TODO: add colors
 
 # Imports
 import cligen
