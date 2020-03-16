@@ -35,7 +35,6 @@ proc runCommand*(args: seq[string]) =
     let additionalCmds = args[1..argsNum - 1]
     let fetchedCmd = fetchCommand(alias).get().join("").strip(chars = {'"'})
     let excCommand = assembleCmd(fetchedCmd, additionalCmds)
-    echo excCommand
     discard os.execShellCmd(excCommand)
   else:
     echo "Not A Valid Alias :("
