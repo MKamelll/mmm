@@ -1,12 +1,13 @@
-#TODO: use sql instead of json
-#TODO: find a better way instead of \""""\
-#TODO: add -e to edit & -d to delete & -l to list
 # Imports
 import cligen
 import json
 import os
 import strformat
 import strutils
+
+# Consts
+const fileName = "commands_alias_list.json"
+const filePath* = os.getHomeDir() / fileName
 
 # A structured command
 type
@@ -15,17 +16,14 @@ type
     parsedCommand: seq[string]
   
 # Checks command already in a file
-proc checkCommandFileOrCreate*(): string =
-  let fileName = "commands_alias_list.json"
-  let filePath = os.getHomeDir() / fileName
+proc checkCommandFileOrCreate*() =
   if not filePath.existsFile():
     var newFile = open(fileName = filePath, mode = fmWrite)
     defer: close(newFile)
     newFile.write("{}")
-  result = filePath
     
 # Checks if a command is present or adds it
-proc checkCommands*(filePath: string, alias: Alias) =
+proc checkCommands*(alias: Alias) =
   var commandsJson = json.parseFile(filePath)
   let key = &"{alias.parsedAlias}"
   let value = %*(alias.parsedCommand)
@@ -43,12 +41,18 @@ proc checkCommands*(filePath: string, alias: Alias) =
     echo &"You have already used \"{key}\" for: \"{valueStr}\""
 
 # Adding new cmds 
-proc addCommand*(alias: string, command: seq[string]) =
-  let filePath = checkCommandFileOrCreate()
-  
-  # adding a trailing space in case the user fotgets
-  let aliasObject = Alias(parsedAlias: alias, parsedCommand: command & " ")
-  checkCommands(filePath, aliasObject)
+proc addCommand*(args: seq[string]) =
+  let argsLength = len(args)
+  if argsLength > 0:
+    let alias = args[0]
+    # adding a trailing space in case the user fotgets
+    let command = args[1..argsLength - 1] & " "
+    let aliasObject = Alias(parsedAlias: alias, parsedCommand: command)
+    checkCommands(aliasObject)
+  else:
+    echo "Not enough arguments :("
+    echo r"""TIP: run mmm a {YOUR ALIAS -add quotes if it's more than one word-}
+         {YOUR COMMAND -if it's literally a string \""{YOUR STRING}""\}"""
 
 # Test
 when isMainModule:

@@ -30,6 +30,7 @@ proc runCommand*(args: seq[string]) =
     discard os.execShellCmd(excCommand)
   else:
     echo "Not A Valid Alias :("
+    echo "TIP: run mmm r {YOUR ALIAS -add quotes if it's more than one word-}"
 
 # Test
 when isMainModule:
