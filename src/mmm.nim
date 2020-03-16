@@ -1,7 +1,6 @@
 #TODOS
 #TODO: use sql instead of json
 #TODO: find a better way instead of \""""\
-#TODO: add -d to delete & -l to list
 
 # Imports
 import cligen
