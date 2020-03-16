@@ -1,5 +1,7 @@
 ## Alias Long Commands for windows
 
+Run `git clone https://github.com/MKamelll/mmm.git`
+
 Run `nimble build mmm` in the main directory.
 
 Run `mmm a {YOUR ALIAS -add quotes if it's more than one word-} {YOUR COMMAND}` to `add` commnds, the file gets created in your Home directory.
