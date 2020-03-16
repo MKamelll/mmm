@@ -12,6 +12,6 @@ Run `mmm l` to `list` all aliases and their commands.
 
 Run `mmm d {Alias}` to `delete` an alias.
 
-[NOTE] => In case of passing string argumets like the commit message, `\""{YOUR STRING}""\`
+[NOTE] => In case of passing string argumets like the commit message, `\""{YOUR STRING}"\"`
 
 Add the the `.exe` file in your path and you can change the name to whatever you'd like to use.
