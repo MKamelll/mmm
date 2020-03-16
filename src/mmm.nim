@@ -10,9 +10,11 @@ import cligen
 import add
 import run
 import delete
+import list
 
 # Dispatch
 when isMainModule:
   dispatchMulti([addCommand, cmdName = "a"],
                 [runCommand, cmdName = "r"],
-                [deleteCommand, cmdName = "d"])
+                [deleteCommand, cmdName = "d"],
+                [listCommands, cmdName = "l"])
