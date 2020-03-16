@@ -14,6 +14,7 @@ proc deleteCommand*(args: seq[string]) =
     if commandsJson.hasKey(alias):
       commandsJson.delete(alias)
       let file = open(filePath, mode = fmWrite)
+      defer: close(file)
       file.write(commandsJson)
       echo &"You have deleted {alias}"
     else:
