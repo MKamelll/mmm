@@ -1,6 +1,10 @@
 # Imports
 import json
 import strutils
+import colors
+import colec
+
+# Locals
 from add import filePath
 
 # Convert array of JsonNode to string
@@ -20,5 +24,5 @@ proc listCommands* =
   let commandsJson = json.parseFile(filePath)
   for key, value in commandsJson.pairs():
     let valueStr = getStringFromJarray(value)
-    echo key & "\t" & valueStr
+    echo (key @ colBlue) & "\t" & (valueStr @ colYellow)
   

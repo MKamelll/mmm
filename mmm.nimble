@@ -10,5 +10,6 @@ bin           = @["mmm"]
 
 
 # Dependencies
+requires "https://github.com/MKamelll/colec"
 requires "https://github.com/c-blake/cligen"
 requires "nim >= 1.0.0"
