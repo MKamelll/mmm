@@ -24,5 +24,5 @@ proc listCommands* =
   let commandsJson = json.parseFile(filePath)
   for key, value in commandsJson.pairs():
     let valueStr = getStringFromJarray(value)
-    echo (key @ colBlue) & "\t" & (valueStr @ colYellow)
+    echo (key @ colForestGreen) & "\t" & (valueStr @ colYellow)
   

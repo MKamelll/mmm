@@ -3,7 +3,7 @@
 #TODO: add colors
 
 # Imports
-import cligen
+import os
 
 # Local package
 import add
@@ -11,9 +11,42 @@ import run
 import delete
 import list
 
+# Usage
+const USAGE = """
+
+usage: mmm [command] [options]
+------------------------------
+
+commands:
+  r     Run stored aliases
+  d     Delete an alias
+  a     Add an alias
+  l     list all aliases
+"""
+
+proc main(args: seq[string]) =
+  if len(args) >= 1:
+    let 
+      command = args[0]
+      argsWithoutCommand = args[1..high(args)]
+    echo args
+    echo argsWithoutCommand
+    case command:
+      of "r":
+        runCommand(argsWithoutCommand)
+      of "d":
+        deleteCommand(argsWithoutCommand)
+      of "a":
+        addCommand(argsWithoutCommand)
+      of "l":
+        listCommands()
+      else:
+        echo USAGE
+  else:
+    echo USAGE
+    
+  
+
 # Dispatch
 when isMainModule:
-  dispatchMulti([addCommand, cmdName = "a"],
-                [runCommand, cmdName = "r"],
-                [deleteCommand, cmdName = "d"],
-                [listCommands, cmdName = "l"])
+  main(os.commandLineParams())
