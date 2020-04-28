@@ -29,8 +29,6 @@ proc main(args: seq[string]) =
     let 
       command = args[0]
       argsWithoutCommand = args[1..high(args)]
-    echo args
-    echo argsWithoutCommand
     case command:
       of "r":
         runCommand(argsWithoutCommand)
