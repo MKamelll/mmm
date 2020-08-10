@@ -1,5 +1,5 @@
 # imports
-import cligen, json, os, options, strutils, strformat
+import cligen, json, os, options, strutils, strformat, system
 
 # Fetch command
 proc fetchCommand*(alias: string): Option[seq[JsonNode]] =
@@ -25,6 +25,9 @@ proc assembleCmd*(fetchCommand: string, additionalCmds: seq[string]): string =
       finalCmd.add(&"{additionalCmdStr} ")
   result = finalCmd
 
+# stop ctrlc interrupt exception and just exit
+proc handleCtrlC {.noconv.} = system.quit()
+
 # Running cmds
 proc runCommand*(args: seq[string]) =
   let argsNum = args.len()
@@ -35,6 +38,7 @@ proc runCommand*(args: seq[string]) =
     let additionalCmds = args[1..argsNum - 1]
     let fetchedCmd = fetchCommand(alias).get().join("").strip(chars = {'"'})
     let excCommand = assembleCmd(fetchedCmd, additionalCmds)
+    system.setControlCHook(handleCtrlC)
     discard os.execShellCmd(excCommand)
   else:
     echo "Not A Valid Alias :("

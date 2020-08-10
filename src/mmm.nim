@@ -43,7 +43,6 @@ proc main(args: seq[string]) =
   else:
     echo USAGE
     
-  
 
 # Dispatch
 when isMainModule:
